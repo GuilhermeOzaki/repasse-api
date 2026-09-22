@@ -28,4 +28,15 @@ public class CalculadoraRepasseTest {
         BigDecimal resultado = new CalculadoraRepasse().calcularRepasse(solicitacao);
         assertThat(resultado).isEqualByComparingTo("87.01");
     }
+
+    @Test
+    void repasseComEntregaIfoodCreditoCupom() {
+        SolicitacaoRepasse solicitacao = new SolicitacaoRepasse(new BigDecimal("100")
+                , ModalidadeEntrega.ENTREGA_IFOOD
+                , FormaPagamento.CREDITO
+                , new BigDecimal("20"));
+
+        BigDecimal resultado = new CalculadoraRepasse().calcularRepasse(solicitacao);
+        assertThat(resultado).isEqualByComparingTo("59.80");
+    }
 }

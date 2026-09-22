@@ -18,7 +18,8 @@ public class CalculadoraRepasse {
 
         return solicitacao.valorPedido()
                 .subtract(solicitacao.valorPedido().multiply(percentualComissao))
-                .subtract(solicitacao.valorPedido().multiply(percentualPagamento));
+                .subtract(solicitacao.valorPedido().multiply(percentualPagamento))
+                .subtract(solicitacao.valorCupom().multiply(new BigDecimal("0.50")));
 
     }
 }
