@@ -1,6 +1,7 @@
 package com.portfolio.repasse.domain;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class CalculadoraRepasse {
 
@@ -17,9 +18,11 @@ public class CalculadoraRepasse {
         };
 
         return solicitacao.valorPedido()
-                .subtract(solicitacao.valorPedido().multiply(percentualComissao))
-                .subtract(solicitacao.valorPedido().multiply(percentualPagamento))
-                .subtract(solicitacao.valorCupom().multiply(new BigDecimal("0.50")));
+                .subtract(solicitacao.valorPedido().multiply(percentualComissao).setScale(2, RoundingMode.HALF_UP))
+                .subtract(solicitacao.valorPedido().multiply(percentualPagamento).setScale(2, RoundingMode.HALF_UP))
+                .subtract(solicitacao.valorCupom().multiply(new BigDecimal("0.50")).setScale(2, RoundingMode.HALF_UP));
 
     }
+
+
 }
