@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class CalculadoraRepasseTest {
     @Test
@@ -61,4 +62,17 @@ public class CalculadoraRepasseTest {
         BigDecimal resultado = new CalculadoraRepasse().calcularRepasse(solicitacao);
         assertThat(resultado).isEqualByComparingTo("62.02");
     }
+
+    @Test
+    void recusaCupomMaiorQueOPedido(){
+        assertThatThrownBy(() -> new SolicitacaoRepasse(BigDecimal.TEN
+                , ModalidadeEntrega
+                .ENTREGA_IFOOD
+                , FormaPagamento.CREDITO
+                , new BigDecimal("35")))
+        .isInstanceOf(IllegalArgumentException.class);
+    }
+
+
+
 }

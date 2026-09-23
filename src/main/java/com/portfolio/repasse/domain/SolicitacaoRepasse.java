@@ -7,8 +7,12 @@ public record SolicitacaoRepasse(
         ModalidadeEntrega modalidadeEntrega,
         FormaPagamento formaPagamento,
         BigDecimal valorCupom
-
-
 ) {
+
+    public SolicitacaoRepasse {
+        if(valorCupom.compareTo(valorPedido) > 0){
+            throw new IllegalArgumentException("Valor do cupom inválido");
+        }
+    }
 
 }
