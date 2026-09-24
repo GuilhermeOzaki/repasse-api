@@ -2,10 +2,12 @@ package com.portfolio.repasse.domain;
 
 import com.portfolio.repasse.config.ComissaoProperties;
 import com.portfolio.repasse.config.PagamentoProperties;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@Service
 public class CalculadoraRepasse {
 
     private final ComissaoProperties comissaoProperties;
