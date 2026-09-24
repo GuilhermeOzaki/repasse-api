@@ -6,8 +6,8 @@ public record SolicitacaoRepasse(
         BigDecimal valorPedido,
         ModalidadeEntrega modalidadeEntrega,
         FormaPagamento formaPagamento,
-        BigDecimal valorCupom
-) {
+        BigDecimal valorCupom)
+{
 
     public SolicitacaoRepasse {
         if(valorCupom.compareTo(valorPedido) > 0){

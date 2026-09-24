@@ -1,3 +1,12 @@
 spring:
   application:
     name: repasse-api
+
+repasse:
+  comissao:
+    entrega-ifood: 0.27
+    entrega-propria: 0.12
+  pagamento:
+    pix: 0.0099
+    credito: 0.032
+    debito: 0.020

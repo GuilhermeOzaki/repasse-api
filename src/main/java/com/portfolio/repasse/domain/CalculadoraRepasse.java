@@ -1,20 +1,31 @@
 package com.portfolio.repasse.domain;
 
+import com.portfolio.repasse.config.ComissaoProperties;
+import com.portfolio.repasse.config.PagamentoProperties;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class CalculadoraRepasse {
 
+    private final ComissaoProperties comissaoProperties;
+    private final PagamentoProperties pagamentoProperties;
+
+    public CalculadoraRepasse(ComissaoProperties comissaoProperties, PagamentoProperties pagamentoProperties) {
+        this.comissaoProperties = comissaoProperties;
+        this.pagamentoProperties = pagamentoProperties;
+    }
+
     public BigDecimal calcularRepasse(SolicitacaoRepasse solicitacao) {
         BigDecimal percentualComissao = switch (solicitacao.modalidadeEntrega()) {
-            case ENTREGA_IFOOD -> new BigDecimal("0.27");
-            case ENTREGA_PROPRIA -> new BigDecimal("0.12");
+            case ENTREGA_IFOOD -> comissaoProperties.entregaIfood();
+            case ENTREGA_PROPRIA -> comissaoProperties.entregaPropria();
         };
 
         BigDecimal percentualPagamento = switch (solicitacao.formaPagamento()) {
-            case PIX -> new BigDecimal("0.0099");
-            case CREDITO -> new BigDecimal("0.032");
-            case DEBITO -> new BigDecimal("0.020");
+            case PIX -> pagamentoProperties.pix();
+            case CREDITO -> pagamentoProperties.credito();
+            case DEBITO -> pagamentoProperties.debito();
         };
 
         return solicitacao.valorPedido()

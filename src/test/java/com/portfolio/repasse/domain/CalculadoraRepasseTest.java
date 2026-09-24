@@ -1,5 +1,7 @@
 package com.portfolio.repasse.domain;
 
+import com.portfolio.repasse.config.ComissaoProperties;
+import com.portfolio.repasse.config.PagamentoProperties;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -8,6 +10,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class CalculadoraRepasseTest {
+    private final ComissaoProperties comissao = new ComissaoProperties(new BigDecimal("0.27"), new BigDecimal("0.12"));
+    private final PagamentoProperties pagamento = new PagamentoProperties(new BigDecimal("0.0099")
+            , new BigDecimal("0.032")
+            , new BigDecimal("0.020"));
+
+
     @Test
     void descontaComissaoIfoodETaxaDeCredito() {
         SolicitacaoRepasse solicitacao = new SolicitacaoRepasse(new BigDecimal("100")
@@ -15,7 +23,7 @@ public class CalculadoraRepasseTest {
                 , FormaPagamento.CREDITO
                 , BigDecimal.ZERO);
 
-        BigDecimal resultado = new CalculadoraRepasse().calcularRepasse(solicitacao);
+        BigDecimal resultado = new CalculadoraRepasse(comissao,pagamento).calcularRepasse(solicitacao);
         assertThat(resultado).isEqualByComparingTo("69.80");
     }
 
@@ -26,7 +34,7 @@ public class CalculadoraRepasseTest {
                 , FormaPagamento.PIX
                 , BigDecimal.ZERO);
 
-        BigDecimal resultado = new CalculadoraRepasse().calcularRepasse(solicitacao);
+        BigDecimal resultado = new CalculadoraRepasse(comissao,pagamento).calcularRepasse(solicitacao);
         assertThat(resultado).isEqualByComparingTo("87.01");
     }
 
@@ -37,7 +45,7 @@ public class CalculadoraRepasseTest {
                 , FormaPagamento.CREDITO
                 , new BigDecimal("20"));
 
-        BigDecimal resultado = new CalculadoraRepasse().calcularRepasse(solicitacao);
+        BigDecimal resultado = new CalculadoraRepasse(comissao,pagamento).calcularRepasse(solicitacao);
         assertThat(resultado).isEqualByComparingTo("59.80");
     }
 
@@ -48,7 +56,7 @@ public class CalculadoraRepasseTest {
                 , FormaPagamento.CREDITO
                 , BigDecimal.ZERO);
 
-        BigDecimal resultado = new CalculadoraRepasse().calcularRepasse(solicitacao);
+        BigDecimal resultado = new CalculadoraRepasse(comissao,pagamento).calcularRepasse(solicitacao);
         assertThat(resultado).isEqualByComparingTo("61.00");
     }
 
@@ -59,7 +67,7 @@ public class CalculadoraRepasseTest {
                 , FormaPagamento.CREDITO
                 , new BigDecimal("15.55"));
 
-        BigDecimal resultado = new CalculadoraRepasse().calcularRepasse(solicitacao);
+        BigDecimal resultado = new CalculadoraRepasse(comissao,pagamento).calcularRepasse(solicitacao);
         assertThat(resultado).isEqualByComparingTo("62.02");
     }
 
