@@ -4,12 +4,10 @@ import com.portfolio.repasse.domain.CalculadoraRepasse;
 import com.portfolio.repasse.domain.SolicitacaoRepasse;
 import com.portfolio.repasse.historico.RegistroRepasse;
 import com.portfolio.repasse.historico.RegistroRepasseRepository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/repasses")
@@ -33,5 +31,10 @@ public class RepasseController {
                 solicitacao.modalidadeEntrega(),
                 solicitacao.formaPagamento()));
         return new RepasseResponse(valorRepasse);
+    }
+
+    @GetMapping
+    public List<RegistroRepasse> listar(){
+        return repository.findAll();
     }
 }
