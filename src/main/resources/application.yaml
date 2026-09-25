@@ -1,6 +1,8 @@
 spring:
   application:
     name: repasse-api
+  jpa:
+    show-sql: true
 
 repasse:
   comissao:
