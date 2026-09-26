@@ -7,6 +7,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,5 +35,17 @@ public class RepasseControllerTest {
                         .content("""
                 {"valorPedido": 10, "modalidadeEntrega": "ENTREGA_IFOOD", "formaPagamento": "CREDITO", "valorCupom": 30}
                 """)).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void getRetornaRepassesSalvos() throws Exception {
+        mockMvc.perform(post("/repasses")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                {"valorPedido": 100, "modalidadeEntrega": "ENTREGA_IFOOD", "formaPagamento": "CREDITO"}
+                """));
+        mockMvc.perform(get("/repasses"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].valorRepasse").value(69.80));
     }
 }
