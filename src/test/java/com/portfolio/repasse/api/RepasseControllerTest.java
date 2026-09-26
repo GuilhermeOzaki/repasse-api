@@ -26,4 +26,13 @@ public class RepasseControllerTest {
                 """)).andExpect(status().isOk())
                 .andExpect(jsonPath("$.valorRepasse").value(69.80));
     }
+
+    @Test
+    void cupomMaiorQuePedidoRetornaBadRequest() throws Exception {
+        mockMvc.perform(post("/repasses")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                {"valorPedido": 10, "modalidadeEntrega": "ENTREGA_IFOOD", "formaPagamento": "CREDITO", "valorCupom": 30}
+                """)).andExpect(status().isBadRequest());
+    }
 }
