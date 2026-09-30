@@ -24,6 +24,7 @@ Projeto feito para estudo.
 - JPA
 - Hibernate
 - H2
+- Swagger (springdoc-openapi)
 
 ## Como rodar
 1 - Abra o terminal
@@ -42,6 +43,12 @@ cd repasse-api
 ```
 ./mvnw spring-boot:run
 ```
+
+5 - Para ver e testar endpoints acesse no navegador:
+```
+http://localhost:8080/swagger-ui.html
+```
+
 
 ## Endpoints
 
