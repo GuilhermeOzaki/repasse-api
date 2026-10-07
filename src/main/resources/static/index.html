@@ -30,6 +30,9 @@
 
     <p id="resultado"></p>
 
+    <h2>Histórico</h2>
+    <ul id="historico"></ul>
+
     <script>
         const form = document.querySelector("form");
 
@@ -60,6 +63,21 @@
 
         });
 
+        async function carregarHistorico() {
+            const reposta = await fetch("/repasses");
+            const lista = await reposta.json();
+            console.log(lista);
+
+            const ul = document.querySelector("#historico");
+
+            lista.forEach((registro) => {
+                const li = document.createElement("li");
+                li.textContent = "Pedido R$ " + registro.valorPedido + " | Repasse R$ " + registro.valorRepasse;
+                ul.appendChild(li);
+            });
+        }
+
+        carregarHistorico();
 
     </script>
 </body>
