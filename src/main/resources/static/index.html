@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de Repasse</title>
+</head>
+<body>
+
+    <h1>Calculadora de Repasse</h1>
+    <form>
+        <label for="valorPedido">Valor do Pedido</label>
+        <input id="valorPedido" type="number" step="0.01">
+        <label for="modalidadeEntrega">Modalidade de entrega</label>
+        <select id="modalidadeEntrega">
+            <option value="ENTREGA_IFOOD">Entrega iFood</option>
+            <option value="ENTREGA_PROPRIA">Entrega Própria</option>
+        </select>
+        <label for="formaPagamento">Forma do Pagamento</label>
+        <select id="formaPagamento">
+            <option value="PIX">Pix</option>
+            <option value="CREDITO">Crédito</option>
+            <option value="DEBITO">Débito</option>
+        </select>
+        <label for="valorCupom">Valor do Cupom</label>
+        <input id="valorCupom" type="number" step="0.01">
+
+
+        <button>Calcular</button>
+    </form>
+
+    <p id="resultado"></p>
+
+    <script>
+        const form = document.querySelector("form");
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            console.log("botão clicado");
+            const dados = {
+                valorPedido: Number(document.querySelector("#valorPedido").value),
+                modalidadeEntrega: String(document.querySelector("#modalidadeEntrega").value),
+                formaPagamento: String(document.querySelector("#formaPagamento").value),
+                valorCupom: Number(document.querySelector("#valorCupom").value),
+            };
+            console.log(dados);
+            const resposta = await fetch("/repasses", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dados)
+            })
+            if(resposta.ok === false){
+                console.log("Erro 400")
+                document.querySelector("#resultado").textContent = "Não foi possível calcular. Confira os valores.";
+                return;
+            }
+            const resultado = await resposta.json();
+            console.log(resultado);
+            document.querySelector("#resultado").textContent = "Repasse: R$ " + resultado.valorRepasse;
+
+
+        });
+
+
+    </script>
+</body>
+</html>
