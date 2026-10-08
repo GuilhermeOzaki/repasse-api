@@ -1,0 +1,80 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #2B3A42;
+    color: #1E1E1E;
+    font-family: "Inter", system-ui, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 48px 16px;
+    box-sizing: border-box;
+}
+
+.comanda {
+    width: 100%;
+    max-width: 420px;
+    background: #FAFAF7;
+    padding: 32px 28px;
+    border-radius: 4px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+label {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+input,
+select,
+button {
+    font: inherit;
+    padding: 10px;
+    border: 1px solid #1E1E1E;
+    border-radius: 2px;
+    background: white;
+}
+button {
+    margin-top: 18px;
+    background: #1E1E1E;
+    color: #FAFAF7;
+    cursor: pointer;
+}
+
+#resultado {
+    margin: 24px 0;
+    padding-top: 16px;
+    border-top: 2px dashed #1E1E1E;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1F8A5B;
+}
+
+h2 {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+#historico {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#historico li {
+    padding: 8px 0;
+    border-bottom: 1px dotted #1E1E1E;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+}
+
+#resultado.erro {
+    color: #C0392B;
+    font-size: 16px;
+}

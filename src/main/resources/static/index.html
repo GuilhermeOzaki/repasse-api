@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Calculadora de Repasse</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <main class="comanda">
 
     <h1>Calculadora de Repasse</h1>
     <form>
@@ -32,7 +34,7 @@
 
     <h2>Histórico</h2>
     <ul id="historico"></ul>
-
+    </main>
     <script>
         const form = document.querySelector("form");
 
@@ -53,13 +55,16 @@
             })
             if(resposta.ok === false){
                 console.log("Erro 400")
+                document.querySelector("#resultado").classList.add("erro");
                 document.querySelector("#resultado").textContent = "Não foi possível calcular. Confira os valores.";
                 return;
             }
             const resultado = await resposta.json();
             console.log(resultado);
+            document.querySelector("#resultado").classList.remove("erro");
             document.querySelector("#resultado").textContent = "Repasse: R$ " + resultado.valorRepasse;
 
+            carregarHistorico();
 
         });
 
@@ -69,16 +74,17 @@
             console.log(lista);
 
             const ul = document.querySelector("#historico");
+            ul.textContent = "";
 
             lista.forEach((registro) => {
                 const li = document.createElement("li");
                 li.textContent = "Pedido R$ " + registro.valorPedido + " | Repasse R$ " + registro.valorRepasse;
                 ul.appendChild(li);
             });
+
         }
 
         carregarHistorico();
-
     </script>
 </body>
 </html>
