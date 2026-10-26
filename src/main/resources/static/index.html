@@ -36,6 +36,9 @@
     <ul id="historico"></ul>
     </main>
     <script>
+        function formatarReais(valor) {
+            return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+        }
         const form = document.querySelector("form");
 
         form.addEventListener("submit", async (event) => {
@@ -62,7 +65,7 @@
             const resultado = await resposta.json();
             console.log(resultado);
             document.querySelector("#resultado").classList.remove("erro");
-            document.querySelector("#resultado").textContent = "Repasse: R$ " + resultado.valorRepasse;
+            document.querySelector("#resultado").textContent = "Repasse: " + formatarReais(resultado.valorRepasse);
 
             carregarHistorico();
 
@@ -78,7 +81,7 @@
 
             lista.forEach((registro) => {
                 const li = document.createElement("li");
-                li.textContent = "Pedido R$ " + registro.valorPedido + " | Repasse R$ " + registro.valorRepasse;
+                li.textContent = "Pedido " + formatarReais(registro.valorPedido) + " | Repasse " + formatarReais(registro.valorRepasse);
                 ul.appendChild(li);
             });
 
