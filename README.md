@@ -5,12 +5,15 @@ valor de repasse, descontando comissão, taxa de pagamento e cupom.
 
 Projeto feito para estudo.
 
+**API online (Swagger):** https://repasse-api-scpm.onrender.com/swagger-ui.html
+(plano grátis: a primeira requisição pode demorar uns 50 segundos)
+
 ## Regras de negócio
 | Item                        | Valor                      |
 |-----------------------------|----------------------------|
 | Comissão iFood / própria    | 27% / 12%                  |
 | Taxa Pix / crédito / débito | 0,99% / 3,2% / 2,0%        |
-| Cupom                       | 	Restaurante paga metade do cupom             |
+| Cupom                       |     Restaurante paga metade do cupom             |
 | Percentuais                 | Incidem sobre o valor total do pedido |
 | Arredondamento              | 2 casas decimais por componente, meio para cima    |
 | Cupom > Pedido              | Pedido recusado (erro 400)                 |
@@ -23,28 +26,37 @@ Projeto feito para estudo.
 - JUnit
 - JPA
 - Hibernate
-- H2
+- PostgreSQL
 - Swagger (springdoc-openapi)
+- Docker
+- Render (deploy)
 
 ## Como rodar
+Precisa de Java 21 e PostgreSQL instalado, com um banco chamado `repasse`.
+
 1 - Abra o terminal
 
 2 - Rode:
 ```
 git clone https://github.com/GuilhermeOzaki/repasse-api
 ```
- 
-3 - Rode: 
+
+3 - Rode:
 ```
 cd repasse-api
 ```
 
-4 - Rode: 
+4 - Informe a senha do usuário postgres (PowerShell):
+```
+$env:DB_PASSWORD="sua_senha"
+```
+
+5 - Rode:
 ```
 ./mvnw spring-boot:run
 ```
 
-5 - Para ver e testar endpoints acesse no navegador:
+6 - Para ver e testar endpoints acesse no navegador:
 ```
 http://localhost:8080/swagger-ui.html
 ```
