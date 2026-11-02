@@ -1,93 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Calcule quanto o restaurante recebe de um pedido depois da comissão, da taxa de pagamento e do cupom." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
     <title>Calculadora de Repasse</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <main class="comanda">
-
-    <h1>Calculadora de Repasse</h1>
-    <form>
-        <label for="valorPedido">Valor do Pedido</label>
-        <input id="valorPedido" type="number" step="0.01">
-        <label for="modalidadeEntrega">Modalidade de entrega</label>
-        <select id="modalidadeEntrega">
-            <option value="ENTREGA_IFOOD">Entrega iFood</option>
-            <option value="ENTREGA_PROPRIA">Entrega Própria</option>
-        </select>
-        <label for="formaPagamento">Forma do Pagamento</label>
-        <select id="formaPagamento">
-            <option value="PIX">Pix</option>
-            <option value="CREDITO">Crédito</option>
-            <option value="DEBITO">Débito</option>
-        </select>
-        <label for="valorCupom">Valor do Cupom</label>
-        <input id="valorCupom" type="number" step="0.01">
-
-
-        <button>Calcular</button>
-    </form>
-
-    <p id="resultado"></p>
-
-    <h2>Histórico</h2>
-    <ul id="historico"></ul>
-    </main>
-    <script>
-        function formatarReais(valor) {
-            return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-        }
-        const form = document.querySelector("form");
-
-        form.addEventListener("submit", async (event) => {
-            event.preventDefault();
-            console.log("botão clicado");
-            const dados = {
-                valorPedido: Number(document.querySelector("#valorPedido").value),
-                modalidadeEntrega: String(document.querySelector("#modalidadeEntrega").value),
-                formaPagamento: String(document.querySelector("#formaPagamento").value),
-                valorCupom: Number(document.querySelector("#valorCupom").value),
-            };
-            console.log(dados);
-            const resposta = await fetch("/repasses", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(dados)
-            })
-            if(resposta.ok === false){
-                console.log("Erro 400")
-                document.querySelector("#resultado").classList.add("erro");
-                document.querySelector("#resultado").textContent = "Não foi possível calcular. Confira os valores.";
-                return;
-            }
-            const resultado = await resposta.json();
-            console.log(resultado);
-            document.querySelector("#resultado").classList.remove("erro");
-            document.querySelector("#resultado").textContent = "Repasse: " + formatarReais(resultado.valorRepasse);
-
-            carregarHistorico();
-
-        });
-
-        async function carregarHistorico() {
-            const reposta = await fetch("/repasses");
-            const lista = await reposta.json();
-            console.log(lista);
-
-            const ul = document.querySelector("#historico");
-            ul.textContent = "";
-
-            lista.forEach((registro) => {
-                const li = document.createElement("li");
-                li.textContent = "Pedido " + formatarReais(registro.valorPedido) + " | Repasse " + formatarReais(registro.valorRepasse);
-                ul.appendChild(li);
-            });
-
-        }
-
-        carregarHistorico();
-    </script>
-</body>
+    <script type="module" crossorigin src="/assets/index-Bpgw8HiQ.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BFPBh357.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
