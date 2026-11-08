@@ -5,7 +5,7 @@ valor de repasse, descontando comissão, taxa de pagamento e cupom.
 
 Projeto feito para estudo.
 
-**API online (Swagger):** https://repasse-api-scpm.onrender.com/swagger-ui.html
+**API online (Swagger):** https://repasse-api-3ohs.onrender.com/swagger-ui.html
 (plano grátis: a primeira requisição pode demorar uns 50 segundos)
 
 ## Regras de negócio
@@ -30,6 +30,7 @@ Projeto feito para estudo.
 - Swagger (springdoc-openapi)
 - Docker
 - Render (deploy)
+- Neon (banco PostgreSQL na nuvem)
 
 ## Como rodar
 Precisa de Java 21 e PostgreSQL instalado, com um banco chamado `repasse`.
