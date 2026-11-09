@@ -9,6 +9,15 @@ spring:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/repasse}
     username: ${DB_USER:postgres}
     password: ${DB_PASSWORD}
+  ai:
+    retry:
+      max-attempts: 1
+    google:
+      genai:
+        api-key: ${GEMINI_API_KEY}
+        chat:
+          options:
+            model: gemini-3.5-flash
 
 repasse:
   comissao:
